@@ -4,9 +4,17 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+// Database
+var mongo = require('mongoskin');
+var db = mongo.db("mongodb://vividArtsCtrl:q573JyAvKBgNE7XSXZLq77ccnU@dogen.mongohq.com:10037/vivid-arts", {native_parser:true});
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
+var pieces = require('./routes/pieces');
+/*
+var spots = require('./routes/spots');
+var artists = require('./routes/artists');
+var pages = require('./routes/pages');
+*/
 
 var app = express();
 
@@ -22,8 +30,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Make our db accessible to our router
+app.use(function(req,res,next){
+    req.db = db;
+    next();
+});
 app.use('/', routes);
-app.use('/users', users);
+app.use('/pieces', pieces);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
