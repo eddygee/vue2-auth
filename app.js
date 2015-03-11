@@ -10,11 +10,9 @@ var db = mongo.db("mongodb://vividArtsCtrl:q573JyAvKBgNE7XSXZLq77ccnU@dogen.mong
 
 var routes = require('./routes/index');
 var pieces = require('./routes/pieces');
-/*
 var spots = require('./routes/spots');
 var artists = require('./routes/artists');
 var pages = require('./routes/pages');
-*/
 
 var app = express();
 
@@ -37,6 +35,9 @@ app.use(function(req,res,next){
 });
 app.use('/', routes);
 app.use('/pieces', pieces);
+app.use('/spots', spots);
+app.use('/artists', artists);
+app.use('/pages', pages);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
