@@ -13,6 +13,7 @@ var pieces = require('./routes/pieces');
 var spots = require('./routes/spots');
 var artists = require('./routes/artists');
 var pages = require('./routes/pages');
+var accounts = require('./routes/account');
 
 var app = express();
 
@@ -38,6 +39,7 @@ app.use('/pieces', pieces);
 app.use('/spots', spots);
 app.use('/artists', artists);
 app.use('/pages', pages);
+app.use('/auth', accounts);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
