@@ -16,9 +16,11 @@ router.post('/login', function(req, res, next) {
       */
 
     /* RETRIEVE USER IF EXISTS */
-    db.collection('users').findOne({'profile.email':req.body.email}, function (err, payload) {
+    var q = {'profile.email':req.body.email};
+    db.collection('users').findOne(q, function (err, payload) {
       
       console.log('USER PAYLOAD', payload);
+      console.log('query', q);
 
       /* IF USER DOES NOT EXISTS,
        * SAVE TO USERS COLLECTION
