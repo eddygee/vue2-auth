@@ -49,19 +49,26 @@ router.post('/login', function(req, res, next) {
                 newUser.services.facebook.email = data.email;
 
               //if(typeof(body.accesTokens.facebook)!=='undefined')
-                //newUser.services.facebook.expiresAt = 1428581707658,
+                //newUser.services.facebook.expiresAt = 1428581707658;
+
               if(typeof(data.first_name)!=='undefined')
                 newUser.services.facebook.first_name = data.first_name;
+
               if(typeof(data.gender)!=='undefined')
                 newUser.services.facebook.gender = data.gender;
+              
               if(typeof(data.id)!=='undefined')
-                newUser.services.facebook.id = data.id;
+                newUser.services.facebook._id = data.id;
+              
               if(typeof(data.last_name)!=='undefined')
                 newUser.services.facebook.last_name = data.last_name;
+              
               if(typeof(data.link)!=='undefined')
                 newUser.services.facebook.link = data.link;
+              
               if(typeof(data.locale)!=='undefined')
                 newUser.services.facebook.locale = data.locale;
+              
               if(typeof(data.name)!=='undefined')
                 newUser.services.facebook.name = data.name;
               
