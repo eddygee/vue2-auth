@@ -34,6 +34,7 @@ router.post('/login', function(req, res, next) {
             newUser.profile = {};
             newUser.profile.captured = [];
             newUser.profile.name = payload.name;
+            newUser.profile.locale = 'wpb';
         
         db.collection('users').insert(newUser, function(err, result) {
             if (err) throw err;
