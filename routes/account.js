@@ -16,7 +16,7 @@ router.post('/login', function(req, res, next) {
       */
 
     /* RETRIEVE USER IF EXISTS */
-    var q = {'profile.email':req.body.email};
+    var q = {'profile.email':req.body.payload};
     db.collection('users').findOne(q, function (err, payload) {
       
       console.log('USER PAYLOAD', payload);
