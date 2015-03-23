@@ -35,6 +35,7 @@ router.post('/login', function(req, res, next) {
             newUser.profile.captured = [];
             newUser.profile.name = data.name;
             newUser.profile.locale = 'wpb'; //3 character code
+            newUser.profile.status = 1;
 
             if(body.type === 'fb'){
               if(typeof(newUser.services)==='undefined'){
