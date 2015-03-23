@@ -6,9 +6,8 @@ var BSON = require('mongodb').BSONPure;
 /* POST pieces listing. */
 router.post('/login', function(req, res, next) {
     var email = req.body.email,
-        db = req.db;
-
-        console.log('1) ', req.body);
+        db = req.db,
+        data = req.body.payload;
 
       /*
       return false;
@@ -16,7 +15,7 @@ router.post('/login', function(req, res, next) {
       */
 
     /* RETRIEVE USER IF EXISTS */
-    var q = {'profile.email':req.body.payload};
+    var q = {'profile.email':data.email};
     db.collection('users').findOne(q, function (err, payload) {
       
       console.log('USER PAYLOAD', payload);
@@ -29,12 +28,12 @@ router.post('/login', function(req, res, next) {
         console.log('CREATING NEW USER');
 
         var newUser = {};
-            newUser.email= req.body.email;
+            newUser.profile.email= payload.email;
             newUser.createdAt= new Date().toISOString();
 
             newUser.profile = {};
             newUser.profile.captured = [];
-            newUser.profile.name = req.body.name;
+            newUser.profile.name = payload.name;
         
         db.collection('users').insert(newUser, function(err, result) {
             if (err) throw err;
