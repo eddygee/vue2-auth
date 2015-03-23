@@ -50,20 +50,20 @@ router.post('/login', function(req, res, next) {
 
               //if(typeof(body.accesTokens.facebook)!=='undefined')
                 //newUser.services.facebook.expiresAt = 1428581707658,
-              if(typeof(payload.first_name)!=='undefined')
-                newUser.services.facebook.first_name = payload.first_name;
-              if(typeof(payload.gender)!=='undefined')
-                newUser.services.facebook.gender = payload.gender;
-              if(typeof(payload.id)!=='undefined')
-                newUser.services.facebook.id = payload.id;
-              if(typeof(payload.last_name)!=='undefined')
-                newUser.services.facebook.last_name = payload.last_name;
-              if(typeof(payload.link)!=='undefined')
-                newUser.services.facebook.link = payload.link;
-              if(typeof(payload.locale)!=='undefined')
-                newUser.services.facebook.locale = payload.locale;
-              if(typeof(payload.name)!=='undefined')
-                newUser.services.facebook.name = payload.name;
+              if(typeof(data.first_name)!=='undefined')
+                newUser.services.facebook.first_name = data.first_name;
+              if(typeof(data.gender)!=='undefined')
+                newUser.services.facebook.gender = data.gender;
+              if(typeof(data.id)!=='undefined')
+                newUser.services.facebook.id = data.id;
+              if(typeof(data.last_name)!=='undefined')
+                newUser.services.facebook.last_name = data.last_name;
+              if(typeof(data.link)!=='undefined')
+                newUser.services.facebook.link = data.link;
+              if(typeof(data.locale)!=='undefined')
+                newUser.services.facebook.locale = data.locale;
+              if(typeof(data.name)!=='undefined')
+                newUser.services.facebook.name = data.name;
               
                 newUser.services.facebook.resume = {
                 loginTokens: []
