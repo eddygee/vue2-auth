@@ -40,12 +40,12 @@ router.post('/login', function(req, res, next) {
             if(body.type === 'fb'){
               if(typeof(newUser.services)==='undefined'){
                 newUser.services = {};
-                newUser.services.facebook = {};
               }
+              newUser.services.facebook = {};
               newUser.services.facebook.accessToken = body.accesTokens.facebook;
               newUser.services.facebook.email = data.email;
 
-              //newUser.services.facebook.expiresAt: 1428581707658,
+              //newUser.services.facebook.expiresAt = 1428581707658,
               newUser.services.facebook.first_name = payload.first_name;
               newUser.services.facebook.gender = payload.gender;
               newUser.services.facebook.id = payload.id;
