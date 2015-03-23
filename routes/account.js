@@ -28,12 +28,12 @@ router.post('/login', function(req, res, next) {
         console.log('CREATING NEW USER');
 
         var newUser = {};
-            newUser.profile.email= payload.email;
+            newUser.profile.email= data.email;
             newUser.createdAt= new Date().toISOString();
 
             newUser.profile = {};
             newUser.profile.captured = [];
-            newUser.profile.name = payload.name;
+            newUser.profile.name = data.name;
             newUser.profile.locale = 'wpb';
         
         db.collection('users').insert(newUser, function(err, result) {
