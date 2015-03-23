@@ -5,8 +5,7 @@ var BSON = require('mongodb').BSONPure;
 
 /* POST pieces listing. */
 router.post('/login', function(req, res, next) {
-    var email = req.body.email,
-        db = req.db,
+    var db = req.db,
         data = req.body.payload;
 
       /*
@@ -28,10 +27,10 @@ router.post('/login', function(req, res, next) {
         console.log('CREATING NEW USER');
 
         var newUser = {};
-            newUser.profile.email= data.email;
             newUser.createdAt= new Date().toISOString();
 
             newUser.profile = {};
+            newUser.profile.email= data.email;
             newUser.profile.captured = [];
             newUser.profile.name = data.name;
             newUser.profile.locale = 'wpb'; //3 character code
