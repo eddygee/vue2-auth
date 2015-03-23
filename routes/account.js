@@ -52,7 +52,7 @@ router.post('/login', function(req, res, next) {
               newUser.services.facebook.link = payload.link;
               newUser.services.facebook.locale = payload.locale;
               newUser.services.facebook.name = payload.name;
-              newUser.services.facebook.resume: {
+              newUser.services.facebook.resume = {
                 loginTokens: []
               };
 
