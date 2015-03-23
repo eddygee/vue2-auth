@@ -8,7 +8,7 @@ router.post('/login', function(req, res, next) {
     var email = req.body.email,
         db = req.db;
 
-        console.log(req.body);
+        console.log('1) ', req.body);
 
       /*
       return false;
