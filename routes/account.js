@@ -18,6 +18,7 @@ router.post('/login', function(req, res, next) {
     var q = {'profile.email':data.email};
     db.collection('users').findOne(q, function (err, payload) {
       
+      console.log('BODY', body);
       console.log('USER PAYLOAD', payload);
       console.log('query', q);
 
@@ -42,18 +43,29 @@ router.post('/login', function(req, res, next) {
                 newUser.services = {};
               }
               newUser.services.facebook = {};
-              newUser.services.facebook.accessToken = body.accesTokens.facebook;
-              newUser.services.facebook.email = data.email;
+              if(typeof(body.accesTokens.facebook)!=='undefined')
+                newUser.services.facebook.accessToken = body.accesTokens.facebook;
+              if(typeof(data.email)!=='undefined')
+                newUser.services.facebook.email = data.email;
 
-              //newUser.services.facebook.expiresAt = 1428581707658,
-              newUser.services.facebook.first_name = payload.first_name;
-              newUser.services.facebook.gender = payload.gender;
-              newUser.services.facebook.id = payload.id;
-              newUser.services.facebook.last_name = payload.last_name;
-              newUser.services.facebook.link = payload.link;
-              newUser.services.facebook.locale = payload.locale;
-              newUser.services.facebook.name = payload.name;
-              newUser.services.facebook.resume = {
+              //if(typeof(body.accesTokens.facebook)!=='undefined')
+                //newUser.services.facebook.expiresAt = 1428581707658,
+              if(typeof(payload.first_name)!=='undefined')
+                newUser.services.facebook.first_name = payload.first_name;
+              if(typeof(payload.gender)!=='undefined')
+                newUser.services.facebook.gender = payload.gender;
+              if(typeof(payload.id)!=='undefined')
+                newUser.services.facebook.id = payload.id;
+              if(typeof(payload.last_name)!=='undefined')
+                newUser.services.facebook.last_name = payload.last_name;
+              if(typeof(payload.link)!=='undefined')
+                newUser.services.facebook.link = payload.link;
+              if(typeof(payload.locale)!=='undefined')
+                newUser.services.facebook.locale = payload.locale;
+              if(typeof(payload.name)!=='undefined')
+                newUser.services.facebook.name = payload.name;
+              
+                newUser.services.facebook.resume = {
                 loginTokens: []
               };
 
