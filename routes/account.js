@@ -6,7 +6,8 @@ var BSON = require('mongodb').BSONPure;
 /* POST pieces listing. */
 router.post('/login', function(req, res, next) {
     var db = req.db,
-        data = req.body.payload;
+        body = req.body,
+        data = body.payload;
 
       /*
       return false;
@@ -34,6 +35,28 @@ router.post('/login', function(req, res, next) {
             newUser.profile.captured = [];
             newUser.profile.name = data.name;
             newUser.profile.locale = 'wpb'; //3 character code
+
+            if(body.type === 'fb'){
+              if(typeof(newUser.services)==='undefined'){
+                newUser.services = {};
+                newUser.services.facebook = {};
+              }
+              newUser.services.facebook.accessToken = body.accesTokens.facebook;
+              newUser.services.facebook.email = data.email;
+
+              //newUser.services.facebook.expiresAt: 1428581707658,
+              newUser.services.facebook.first_name = payload.first_name;
+              newUser.services.facebook.gender = payload.gender;
+              newUser.services.facebook.id = payload.id;
+              newUser.services.facebook.last_name = payload.last_name;
+              newUser.services.facebook.link = payload.link;
+              newUser.services.facebook.locale = payload.locale;
+              newUser.services.facebook.name = payload.name;
+              newUser.services.facebook.resume: {
+                loginTokens: []
+              };
+
+            }
         
         db.collection('users').insert(newUser, function(err, result) {
             if (err) throw err;
