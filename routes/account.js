@@ -85,6 +85,14 @@ router.post('/login', function(req, res, next) {
 
       }else{
         console.log('user already exists', payload);
+        var newToken =  {
+          when : new Date().toISOString()
+        }
+
+        db.collection('users').update({_id:payload._id}, {'$push':{'services.facebook.resume.loginTokens':newToken}}, function(err, result) {
+            if (err) throw err;
+            if (result) console.log('Added Token');
+        });
       }
 
       res.setHeader('Access-Control-Allow-Origin', '*');
