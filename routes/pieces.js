@@ -103,15 +103,37 @@ router.get('/:pieceId', function(req, res, next) {
           db.collection('artists').find({_id : { "$in" : temp } })
             .toArray(function (err, collection) {
               pieces.artists.collection = collection;
-              //RESPONSE
-              var rtn  = JSON.stringify(pieces);
-              res.setHeader('Access-Control-Allow-Origin', '*');
-              res.type('application/json');
-              res.send(rtn);
+
+              //Find Nearby Pieces
+              db.collection('pieces')
+                .find({loc: {'$near':[pieces.loc[0],pieces.loc[1]]}, 'status':'published'}).toArray(function (err, items) {
+                  res.setHeader('Access-Control-Allow-Origin', '*');
+                  res.type('application/json');
+
+                  pieces.nearby = items;
+                  var rtn  = JSON.stringify(pieces);
+                  //console.log(rtn);
+                  res.send(rtn);
+                  //res.json(items);
+                });
+
             });
         }
 
+      }else{
+
+        //Find Nearby Pieces
+        db.collection('pieces').find({loc: {'$near':[lng,lat]}, 'status':'published'}).toArray(function (err, items) {
+          res.setHeader('Access-Control-Allow-Origin', '*');
+          res.type('application/json');
+          var rtn  = JSON.stringify(items);
+          //console.log(rtn);
+          res.send(rtn);
+          //res.json(items);
+        });
+
       }
+      
 
     });
     /*
