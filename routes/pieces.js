@@ -81,9 +81,6 @@ router.get('/:pieceId', function(req, res, next) {
       pieces.location.spotAddress = spotAddress;
       pieces.location.spot = spot;
 
-
-      //console.log(typeof(addressId));
-      //console.log(addressId);
       if(typeof(pieces.artists) != 'undefined' ){
 
         var artistsId = pieces.artists.ids;
@@ -114,7 +111,6 @@ router.get('/:pieceId', function(req, res, next) {
                   var rtn  = JSON.stringify(pieces);
                   //console.log(rtn);
                   res.send(rtn);
-                  //res.json(items);
                 });
 
             });
