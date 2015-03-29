@@ -4,6 +4,22 @@ var BSON = require('mongodb').BSONPure;
 
 
 /* POST pieces listing. */
+router.post('/register', function(req, res, next) {
+  var db = req.db,
+      body = req.body;
+
+  console.log('HOORAY!!',req);
+  console.log('BODY', body);
+  
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.type('application/json');
+  var rtn  = JSON.stringify( body );
+  res.send(rtn);
+});
+
+
+
+/* POST pieces listing. */
 router.post('/login', function(req, res, next) {
     var db = req.db,
         body = req.body,
