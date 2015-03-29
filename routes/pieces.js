@@ -106,7 +106,7 @@ router.get('/:pieceId', function(req, res, next) {
 
               //Find Nearby Pieces
               db.collection('pieces')
-                .find({loc: {'$near':[pieces.loc[0],pieces.loc[1]]}, 'status':'published'}).toArray(function (err, items) {
+                .find({loc: {'$near':[pieces.loc[0],pieces.loc[1]]}, 'status':'published'}).limit(3).toArray(function (err, items) {
                   res.setHeader('Access-Control-Allow-Origin', '*');
                   res.type('application/json');
 
