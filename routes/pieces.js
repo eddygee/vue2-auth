@@ -110,7 +110,7 @@ router.get('/:pieceId', function(req, res, next) {
                   res.setHeader('Access-Control-Allow-Origin', '*');
                   res.type('application/json');
 
-                  pieces.nearby = items.splice(1,4);
+                  pieces.nearby = items.splice(1,3);
                   var rtn  = JSON.stringify(pieces);
                   //console.log(rtn);
                   res.send(rtn);
