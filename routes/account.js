@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var passport = require('../auth');
 var BSON = require('mongodb').BSONPure;
 
 
@@ -17,10 +18,33 @@ router.post('/register', function(req, res, next) {
   res.send(rtn);
 });
 
+router.post('/create',
+  passport.authenticate('local'),
+  function(req, res) {
+    // If this function gets called, authentication was successful.
+    // `req.user` contains the authenticated user.
+    var db = req.db,
+        body = req.body;
+
+    var q = {'profile.email':data.email};
+    db.collection('users').findOne(q, function (err, payload) {
+      
+      console.log('BODY', body);
+      console.log('USER PAYLOAD', payload);
+      console.log('query', q);
+    }):
+
+    console.log('AUTH SUCCESSFUL!!!!!!!!!!');
+    //res.redirect('/users/' + req.user.username);
+  },
+  function(req,res){
+    console.log('FAILED!!!!!!!');
+  });
+
 
 
 /* POST pieces listing. */
-router.post('/login', function(req, res, next) {
+router.post('/fetch-user', function(req, res, next) {
     var db = req.db,
         body = req.body,
         data = body.payload;

@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var mongo = require('mongoskin');
 var db = mongo.db("mongodb://vividArtsCtrl:q573JyAvKBgNE7XSXZLq77ccnU@dogen.mongohq.com:10037/vivid-arts", {native_parser:true});
 
+var passport = require('./auth');
 var routes = require('./routes/index');
 var pieces = require('./routes/pieces');
 var spots = require('./routes/spots');
@@ -24,6 +25,9 @@ app.set('view engine', 'jade');
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
+
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
