@@ -96,7 +96,7 @@ router.get('/:pieceId', function(req, res, next) {
         if(typeof(pieces.artists.artist5)!='undefined')
           temp.push(pieces.artists.artist5);
 
-        if(temp.length){
+        if(temp.length && pieces.loc){
           db.collection('artists').find({_id : { "$in" : temp } })
             .toArray(function (err, collection) {
               pieces.artists.collection = collection;
@@ -114,6 +114,13 @@ router.get('/:pieceId', function(req, res, next) {
                 });
 
             });
+        }else{
+          res.setHeader('Access-Control-Allow-Origin', '*');
+          res.type('application/json');
+
+          var rtn  = JSON.stringify(pieces);
+          //console.log(rtn);
+          res.send(rtn);
         }
 
       }else{
