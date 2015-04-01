@@ -105,12 +105,12 @@ router.get('/:pieceId', function(req, res, next) {
             //Find Nearby Pieces
             db.collection('pieces')
               .find({loc: {'$near':[pieces.loc[0],pieces.loc[1]]}, 'status':'published'}).limit(5).toArray(function (err, items) {
-                res.setHeader('Access-Control-Allow-Origin', '*');
-                res.type('application/json');
 
                 pieces.nearby = items.splice(1,3);
                 var rtn  = JSON.stringify(pieces);
                 //console.log(rtn);
+                res.setHeader('Access-Control-Allow-Origin', '*');
+                res.type('application/json');
                 res.send(rtn);
               });
           }else{
