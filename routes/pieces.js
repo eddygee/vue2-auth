@@ -95,11 +95,12 @@ router.get('/:pieceId', function(req, res, next) {
           temp.push(pieces.artists.artist4);
         if(typeof(pieces.artists.artist5)!='undefined')
           temp.push(pieces.artists.artist5);
+        
+        db.collection('artists').find({_id : { "$in" : temp } })
+          .toArray(function (err, collection) {
+            pieces.artists.collection = collection;
 
         if(temp.length && pieces.loc){
-          db.collection('artists').find({_id : { "$in" : temp } })
-            .toArray(function (err, collection) {
-              pieces.artists.collection = collection;
 
               //Find Nearby Pieces
               db.collection('pieces')
