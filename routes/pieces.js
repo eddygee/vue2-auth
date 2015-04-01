@@ -100,29 +100,29 @@ router.get('/:pieceId', function(req, res, next) {
           .toArray(function (err, collection) {
             pieces.artists.collection = collection;
 
-        if(temp.length && pieces.loc){
+          if(temp.length && pieces.loc){
 
-              //Find Nearby Pieces
-              db.collection('pieces')
-                .find({loc: {'$near':[pieces.loc[0],pieces.loc[1]]}, 'status':'published'}).limit(5).toArray(function (err, items) {
-                  res.setHeader('Access-Control-Allow-Origin', '*');
-                  res.type('application/json');
+            //Find Nearby Pieces
+            db.collection('pieces')
+              .find({loc: {'$near':[pieces.loc[0],pieces.loc[1]]}, 'status':'published'}).limit(5).toArray(function (err, items) {
+                res.setHeader('Access-Control-Allow-Origin', '*');
+                res.type('application/json');
 
-                  pieces.nearby = items.splice(1,3);
-                  var rtn  = JSON.stringify(pieces);
-                  //console.log(rtn);
-                  res.send(rtn);
-                });
+                pieces.nearby = items.splice(1,3);
+                var rtn  = JSON.stringify(pieces);
+                //console.log(rtn);
+                res.send(rtn);
+              });
+          }else{
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            res.type('application/json');
 
-            });
-        }else{
-          res.setHeader('Access-Control-Allow-Origin', '*');
-          res.type('application/json');
+            var rtn  = JSON.stringify(pieces);
+            //console.log(rtn);
+            res.send(rtn);
+          }
 
-          var rtn  = JSON.stringify(pieces);
-          //console.log(rtn);
-          res.send(rtn);
-        }
+        });
 
       }else{
 
