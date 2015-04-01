@@ -3,7 +3,7 @@ var router = express.Router();
 var BSON = require('mongodb').BSONPure;
 
 
-/* POST pieces listing. */
+/* POST pieces listing. 
 router.get('/syncartistsids', function(req, res, next) {
 
   var db = req.db,
@@ -32,6 +32,11 @@ router.get('/syncartistsids', function(req, res, next) {
           artists.push( items[i].artists.artist5 );
       }
 
+      //UPDATE PIECE
+      db.collection('pieces').find({_id:id}).toArray(function (err, items) {
+
+      });
+
     }
 
     console.log(rtn, artists);
@@ -39,6 +44,7 @@ router.get('/syncartistsids', function(req, res, next) {
   });
 
 });
+*/
 
 /* POST pieces listing. */
 router.post('/login', function(req, res, next) {
