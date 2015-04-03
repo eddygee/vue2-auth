@@ -46,16 +46,17 @@ router.get('/syncartistsids', function(req, res, next) {
 });
 */
 
+
 /* POST pieces listing. */
 router.post('/login', function(req, res, next) {
     var db = req.db,
         body = req.body,
         data = body.payload;
 
-      /*
-      return false;
-      res.send(rtn);
-      */
+    /*
+    return false;
+    res.send(rtn);
+    */
 
     /* RETRIEVE USER IF EXISTS */
     var q = {'profile.email':data.email};
@@ -77,6 +78,8 @@ router.post('/login', function(req, res, next) {
             newUser.profile = {};
             newUser.profile.email= data.email;
             newUser.profile.captured = [];
+            newUser.profile.favorite = [];
+            newUser.profile.following = [];
             newUser.profile.name = data.name;
             newUser.profile.locale = 'wpb'; //3 character code
             newUser.profile.status = 1;

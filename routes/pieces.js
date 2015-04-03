@@ -95,7 +95,7 @@ router.get('/:pieceId', function(req, res, next) {
           temp.push(pieces.artists.artist4);
         if(typeof(pieces.artists.artist5)!='undefined')
           temp.push(pieces.artists.artist5);
-        
+
         db.collection('artists').find({_id : { "$in" : temp } })
           .toArray(function (err, collection) {
             pieces.artists.collection = collection;
@@ -140,12 +140,42 @@ router.get('/:pieceId', function(req, res, next) {
       
 
     });
-    /*
-    */
 
-    //console.log(rtn);
-    //res.json(pieces);
   });
+});
+
+
+
+
+/* POST Add Favorite Image. */
+router.post('/favorite', function(req, res, next) {
+    var db = req.db,
+        body = req.body;
+
+
+    console.log('body',body);
+
+    /* RETRIEVE USER IF EXISTS */
+    var q = {
+      'profile.email' : body.email,
+      'profile.status'        : 1  
+    };
+    console.log('q',q);
+    db.collection('users').findOne(q, function (err, payload) {
+      
+      //console.log('BODY', body);
+      //console.log('USER PAYLOAD', payload);
+      //console.log('query', q);
+
+
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.type('application/json');
+      var rtn  = JSON.stringify(payload);
+      //console.log(rtn);
+      res.send(rtn);
+
+    });
+
 });
 
 module.exports = router;
