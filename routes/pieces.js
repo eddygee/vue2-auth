@@ -156,24 +156,28 @@ router.post('/favorite', function(req, res, next) {
     console.log('body',body);
 
     /* RETRIEVE USER IF EXISTS */
-    var q = {
-      'profile.email' : body.email,
-      'profile.status'        : 1  
-    };
-    console.log('q',q);
-    db.collection('users').findOne(q, function (err, payload) {
-      
-      //console.log('BODY', body);
-      //console.log('USER PAYLOAD', payload);
-      //console.log('query', q);
+    var query = {
+          '_id'                   : body.uid,
+          'profile.status'        : 1  
+        },
+        cmd = {
+          '$push' : {
+            'profile.favorite' : body.pid
+          }
+        };
+    console.log('q',query);
+    console.log('cmd',cmd);
 
+
+    db.collection('users').update(query, cmd, function(err) {
+      if (err) throw err;
+      console.log('Updated!');
 
       res.setHeader('Access-Control-Allow-Origin', '*');
       res.type('application/json');
-      var rtn  = JSON.stringify(payload);
+      var rtn  = JSON.stringify({'result':'successful'});
       //console.log(rtn);
       res.send(rtn);
-
     });
 
 });

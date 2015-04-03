@@ -13,6 +13,7 @@ var pieces = require('./routes/pieces');
 var spots = require('./routes/spots');
 var artists = require('./routes/artists');
 var pages = require('./routes/pages');
+var blog = require('./routes/blog');
 var accounts = require('./routes/account');
 //var loaderio = require('./routes/loaderio');
 
@@ -40,6 +41,7 @@ app.use('/pieces', pieces);
 app.use('/spots', spots);
 app.use('/artists', artists);
 app.use('/pages', pages);
+app.use('/blog', blog);
 app.use('/auth', accounts);
 //app.use('/loaderio-1c8e8b375aa7f7ac9c319a7a42f2182e', loaderio);
 
