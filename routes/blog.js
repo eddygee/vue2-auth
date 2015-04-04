@@ -9,7 +9,7 @@ router.get('/', function(req, res1, next) {
   //res.send('respond with a resource');
   var db = req.db;
 
-  var url = 'http://ajax.googleapis.com/ajax/services/feed/load?v=2.0&q=http://vividartsapp.com/feed/&num=20';
+  var url = 'http://ajax.googleapis.com/ajax/services/feed/load?v=2.0&q=http://vividartsapp.com/blog/feed/&num=20';
   http.get(url, function(res) {
       var body = '',
           response = '';
@@ -22,7 +22,7 @@ router.get('/', function(req, res1, next) {
         response = JSON.parse(body);
         console.log("Got response: ", response.responseData);
 
-        
+
         res1.setHeader('Access-Control-Allow-Origin', '*');
         res1.type('application/json');
         console.log(response.responseData);
