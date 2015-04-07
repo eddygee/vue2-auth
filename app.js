@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 // Database
 var mongo = require('mongoskin');
-var db = mongo.db("mongodb://vividArtsCtrl:q573JyAvKBgNE7XSXZLq77ccnU@c799.candidate.32.mongolayer.com:10799,c778.candidate.33.mongolayer.com:10778/vividarts?replicaSet=set-551aa868906cc7dd9a0015fc", {native_parser:true});
+var db = mongo.db("mongodb://vividArtssettings:q573JyAvKBgNE7XSXZLq77ccnU@c799.candidate.32.mongolayer.com:10799,c778.candidate.33.mongolayer.com:10778/vividarts?replicaSet=set-551aa868906cc7dd9a0015fc", {native_parser:true});
 
 var routes = require('./routes/index');
 var pieces = require('./routes/pieces');
@@ -14,6 +14,7 @@ var spots = require('./routes/spots');
 var artists = require('./routes/artists');
 var pages = require('./routes/pages');
 var blog = require('./routes/blog');
+var settings = require('./routes/settings');
 var accounts = require('./routes/account');
 //var loaderio = require('./routes/loaderio');
 
@@ -43,6 +44,7 @@ app.use('/artists', artists);
 app.use('/pages', pages);
 app.use('/blog', blog);
 app.use('/auth', accounts);
+app.use('/ctrl', settings);
 //app.use('/loaderio-1c8e8b375aa7f7ac9c319a7a42f2182e', loaderio);
 
 // catch 404 and forward to error handler
