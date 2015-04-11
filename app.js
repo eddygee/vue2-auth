@@ -7,7 +7,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 // Database
 var mongo = require('mongoskin');
-var db = mongo.db("mongodb://vividArtssettings:q573JyAvKBgNE7XSXZLq77ccnU@c799.candidate.32.mongolayer.com:10799,c778.candidate.33.mongolayer.com:10778/vividarts?replicaSet=set-551aa868906cc7dd9a0015fc", {native_parser:true});
+var db = mongo.db("mongodb://vividArtsCtrl:q573JyAvKBgNE7XSXZLq77ccnU@c799.candidate.32.mongolayer.com:10799,c778.candidate.33.mongolayer.com:10778/vividarts?replicaSet=set-551aa868906cc7dd9a0015fc", {native_parser:true});
 
 var routes = require('./routes/index');
 var pieces = require('./routes/pieces');
