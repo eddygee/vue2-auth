@@ -49,8 +49,6 @@ router.get('/syncartistsids', function(req, res, next) {
 
 /* POST pieces listing. */
 router.post('/login', function(req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    
     var db = req.db,
         body = req.body,
         data = body.payload;
@@ -143,8 +141,9 @@ router.post('/login', function(req, res, next) {
         });
       }
 
-      var rtn  = JSON.stringify( payload );
+      res.setHeader('Access-Control-Allow-Origin', '*');
       res.type('application/json');
+      var rtn  = JSON.stringify( payload );
       res.send(rtn);
     });
 
