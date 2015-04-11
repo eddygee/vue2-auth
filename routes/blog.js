@@ -9,7 +9,8 @@ router.get('/', function(req, res1, next) {
   //res.send('respond with a resource');
   var db = req.db;
 
-  var url = 'http://ajax.googleapis.com/ajax/services/feed/load?v=2.0&q=http://vividartsapp.com/blog/feed/&num=20';
+  //var url = 'http://ajax.googleapis.com/ajax/services/feed/load?v=2.0&q=http://vividartsapp.com/blog/feed/&num=20';
+  var url = 'http://www.vividartsapp.com/wp-json/posts?type=post&n=-1';
   http.get(url, function(res) {
       var body = '',
           response = '';
@@ -19,14 +20,14 @@ router.get('/', function(req, res1, next) {
       });
 
       res.on('end', function() {
-        response = JSON.parse(body);
-        console.log("Got response: ", response.responseData);
+        response = body;
+        console.log("Got response: ", response);
 
 
         res1.setHeader('Access-Control-Allow-Origin', '*');
         res1.type('application/json');
-        console.log(response.responseData);
-        res1.send(response.responseData);
+        console.log(response);
+        res1.send(response);
       });
 
   }).on('error', function(e) {

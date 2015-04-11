@@ -21,12 +21,11 @@ router.get('/featured', function(req, res, next) {
   //res.send('respond with a resource');
   var db = req.db;
   db.collection('pieces').findOne({status:'published',featured:true}, function (err, items) {
+    var rtn  = JSON.stringify(items);
+    
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.type('application/json');
-    var rtn  = JSON.stringify(items);
-    //console.log(rtn);
     res.send(rtn);
-    //res.json(items);
   });
 });
 

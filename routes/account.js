@@ -1,50 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var BSON = require('mongodb').BSONPure;
-
-
-/* POST pieces listing. 
-router.get('/syncartistsids', function(req, res, next) {
-
-  var db = req.db,
-      q  =  {  };
-  db.collection('pieces').find().toArray(function (err, items) {
-
-    var rtn  = '',
-        artists = [];
-
-    for(var i=0; i<items.length; i++){
-      var item = items[i],
-          id   = item._id;
-
-
-      rtn = id + ': ';
-      if(typeof(item.artists)!=='undefined'){
-        if( typeof(items[i].artists.artist1) !== 'undefined' )
-          artists.push( items[i].artists.artist1 );
-        if( typeof(items[i].artists.artist2) !== 'undefined' )
-          artists.push( items[i].artists.artist2 );
-        if( typeof(items[i].artists.artist3) !== 'undefined' )
-          artists.push( items[i].artists.artist3 );
-        if( typeof(items[i].artists.artist4) !== 'undefined' )
-          artists.push( items[i].artists.artist4 );
-        if( typeof(items[i].artists.artist5) !== 'undefined' )
-          artists.push( items[i].artists.artist5 );
-      }
-
-      //UPDATE PIECE
-      db.collection('pieces').find({_id:id}).toArray(function (err, items) {
-
-      });
-
-    }
-
-    console.log(rtn, artists);
-
-  });
-
-});
-*/
+var http = require("http");
+var https = require("https");
 
 
 /* POST pieces listing. */
@@ -53,9 +11,20 @@ router.post('/login', function(req, res, next) {
         body = req.body,
         data = body.payload;
 
-    /*
+    console.log(body);
+
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.type('application/json');
+    var rtn  = JSON.stringify( body );
+    res.send(body);
     return false;
-    res.send(rtn);
+
+    var options = {
+      host: 'www.google.com', //'https://graph.facebook.com/me?access_token='+result.access_token
+      path: '/index.html'
+    };
+
+    /*
     */
 
     /* RETRIEVE USER IF EXISTS */
