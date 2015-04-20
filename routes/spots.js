@@ -1,6 +1,6 @@
 var express = require('express');
 var passport = require('passport');
-var OAuth2Strategy = require('passport-oauth').OAuth2Strategy;
+//var OAuth2Strategy = require('passport-oauth').OAuth2Strategy;
 var router = express.Router();
 var BSON = require('mongodb').BSONPure;
 
