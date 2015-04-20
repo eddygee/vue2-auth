@@ -6,7 +6,7 @@ var BSON = require('mongodb').BSONPure;
 router.get('/', function(req, res, next) {
   //res.send('respond with a resource');
   var db = req.db;
-  db.collection('spots').find({status:'published'}).toArray(function (err, items) {
+  db.collection('spots').find({status:'published'}).sort({name:1}).toArray(function (err, items) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.type('application/json');
     var rtn  = JSON.stringify(items);
