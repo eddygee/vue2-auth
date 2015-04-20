@@ -1,6 +1,24 @@
 var express = require('express');
+var passport = require('passport');
+var OAuth2Strategy = require('passport-oauth').OAuth2Strategy;
 var router = express.Router();
 var BSON = require('mongodb').BSONPure;
+
+
+passport.use('facebook', new OAuth2Strategy({
+    authorizationURL: 'https://www.facebook.com/oauth2/authorize',
+    tokenURL: 'https://www.facebook.com/oauth2/token',
+    clientID: '1421370528153984',
+    clientSecret: 'ea1727922569adeb29a6db893d71781a'
+    callbackURL: 'http://localhost/auth/facebook/callback'
+  },
+  function(accessToken, refreshToken, profile, done) {
+    User.findOrCreate(..., function(err, user) {
+      done(err, user);
+    });
+  }
+));
+
 
 /* GET spots listing. */
 router.get('/', function(req, res, next) {
@@ -15,6 +33,7 @@ router.get('/', function(req, res, next) {
     //res.json(items);
   });
 });
+
 
 /* GET spot listing. */
 router.get('/:spotId', function(req, res, next) {
