@@ -10,8 +10,8 @@ router.get('/', function(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.type('application/json');
     var rtn  = JSON.stringify(items);
-    console.log(rtn);
-    console.log(items);
+    //console.log(rtn);
+    //console.log(items);
     res.send(rtn);
     //res.json(items);
   });

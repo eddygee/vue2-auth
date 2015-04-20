@@ -4,7 +4,7 @@ var OAuth2Strategy = require('passport-oauth').OAuth2Strategy;
 var router = express.Router();
 var BSON = require('mongodb').BSONPure;
 
-
+/*
 passport.use('facebook', new OAuth2Strategy({
     authorizationURL: 'https://www.facebook.com/oauth2/authorize',
     tokenURL: 'https://www.facebook.com/oauth2/token',
@@ -18,7 +18,7 @@ passport.use('facebook', new OAuth2Strategy({
     });
   }
 ));
-
+*/
 
 /* GET spots listing. */
 router.get('/', function(req, res, next) {
