@@ -7,6 +7,9 @@ function createUser(db, data){
 
     /* RETRIEVE USER IF EXISTS */
     var q = {'profile.email':data.email};
+
+    conole.log('query', q);
+    
     db.collection('users').findOne(q, function (err, payload) {
       
       console.log('USER PAYLOAD', payload);
