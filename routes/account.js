@@ -111,7 +111,6 @@ router.post('/login', function(req, res1, next) {
         console.log("Got response: ", response);
         createUser(db, response);
 
-
         res1.setHeader('Access-Control-Allow-Origin', '*');
         res1.type('application/json');
         
