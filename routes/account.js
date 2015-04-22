@@ -87,95 +87,45 @@ function createUser(data){
             if (result) console.log('Added Token');
         });
       }
-
+    });
 }
 
 /* POST pieces listing. */
 router.post('/login', function(req, res1, next) {
-    var db = req.db,
-        body = req.body,
-        access_token = body.access_token,
-        url = 'https://graph.facebook.com/me?access_token='+access_token;
+  var db = req.db,
+      body = req.body,
+      access_token = body.access_token,
+      url = 'https://graph.facebook.com/me?access_token='+access_token;
 
-    console.log(url);
+  console.log(url);
 
-    https.get(url, function(res) {
-        var body = '',
-            response = '';
+  https.get(url, function(res) {
+      var body = '',
+          response = '';
 
-        res.on('data', function(chunk) {
-            body += chunk;
-        });
-
-        res.on('end', function() {
-          response = body;
-          console.log("Got response: ", response);
-          createUser(response);
-
-
-          res1.setHeader('Access-Control-Allow-Origin', '*');
-          res1.type('application/json');
-          
-          var rtn  = JSON.stringify( response );
-
-          //Send response
-          res1.send(rtn);
-        });
-
-    }).on('error', function(e) {
-          console.log("Got error: ", e);
-    });
-
-      res.setHeader('Access-Control-Allow-Origin', '*');
-      res.type('application/json');
-      var rtn  = JSON.stringify( payload );
-      res.send(rtn);
-    /*
-    */
-
-    /*
-    /* facebook access token
-
-    http.get('https://graph.facebook.com/me?access_token='+body.access_token, function(res) {
-        var body = '',
-            response = '';
-
-        res.on('data', function(chunk) {
-            body += chunk;
-        });
-
-        res.on('end', function() {
-          response = body;
-          console.log("Got response: ", response);
-
-
-          res1.setHeader('Access-Control-Allow-Origin', '*');
-          res1.type('application/json');
-          console.log(response);
-          res1.send(response);
-        });
-
-    }).on('error', function(e) {
-          console.log("Got error: ", e);
-    });
-
-    http.get('https://graph.facebook.com/me?access_token='+result.access_token)
-      .then(function(resp) {
-        
-        console.log(resp.data);
-
-      }, function(err) {
-        console.error('ERR', err);
-        // err.status will contain the status code
-        //alert(err);
+      res.on('data', function(chunk) {
+          body += chunk;
       });
-    */
 
-      res.setHeader('Access-Control-Allow-Origin', '*');
-      res.type('application/json');
-      var rtn  = JSON.stringify( payload );
-      res.send(rtn);
-    });
+      res.on('end', function() {
+        response = body;
+        console.log("Got response: ", response);
+        createUser(response);
+
+
+        res1.setHeader('Access-Control-Allow-Origin', '*');
+        res1.type('application/json');
+        
+        var rtn  = JSON.stringify( response );
+
+        //Send response
+        res1.send(rtn);
+      });
+
+  }).on('error', function(e) {
+        console.log("Got error: ", e);
+  });
 
 });
+
 module.exports = router;
