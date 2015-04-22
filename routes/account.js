@@ -1,62 +1,9 @@
 var express = require('express');
+var https = require('https');
 var router = express.Router();
 var BSON = require('mongodb').BSONPure;
 
-
-/* POST pieces listing. 
-router.get('/syncartistsids', function(req, res, next) {
-
-  var db = req.db,
-      q  =  {  };
-  db.collection('pieces').find().toArray(function (err, items) {
-
-    var rtn  = '',
-        artists = [];
-
-    for(var i=0; i<items.length; i++){
-      var item = items[i],
-          id   = item._id;
-
-
-      rtn = id + ': ';
-      if(typeof(item.artists)!=='undefined'){
-        if( typeof(items[i].artists.artist1) !== 'undefined' )
-          artists.push( items[i].artists.artist1 );
-        if( typeof(items[i].artists.artist2) !== 'undefined' )
-          artists.push( items[i].artists.artist2 );
-        if( typeof(items[i].artists.artist3) !== 'undefined' )
-          artists.push( items[i].artists.artist3 );
-        if( typeof(items[i].artists.artist4) !== 'undefined' )
-          artists.push( items[i].artists.artist4 );
-        if( typeof(items[i].artists.artist5) !== 'undefined' )
-          artists.push( items[i].artists.artist5 );
-      }
-
-      //UPDATE PIECE
-      db.collection('pieces').find({_id:id}).toArray(function (err, items) {
-
-      });
-
-    }
-
-    console.log(rtn, artists);
-
-  });
-
-});
-*/
-
-
-/* POST pieces listing. */
-router.post('/login', function(req, res, next) {
-    var db = req.db,
-        body = req.body,
-        data = body.payload;
-
-    /*
-    return false;
-    res.send(rtn);
-    */
+function createUser(data){
 
     /* RETRIEVE USER IF EXISTS */
     var q = {'profile.email':data.email};
@@ -140,6 +87,89 @@ router.post('/login', function(req, res, next) {
             if (result) console.log('Added Token');
         });
       }
+
+}
+
+/* POST pieces listing. */
+router.post('/login', function(req, res1, next) {
+    var db = req.db,
+        body = req.body,
+        access_token = body.access_token,
+        url = 'https://graph.facebook.com/me?access_token='+access_token;
+
+    console.log(url);
+
+    https.get(url, function(res) {
+        var body = '',
+            response = '';
+
+        res.on('data', function(chunk) {
+            body += chunk;
+        });
+
+        res.on('end', function() {
+          response = body;
+          console.log("Got response: ", response);
+          createUser(response);
+
+
+          res1.setHeader('Access-Control-Allow-Origin', '*');
+          res1.type('application/json');
+          
+          var rtn  = JSON.stringify( response );
+
+          //Send response
+          res1.send(rtn);
+        });
+
+    }).on('error', function(e) {
+          console.log("Got error: ", e);
+    });
+
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.type('application/json');
+      var rtn  = JSON.stringify( payload );
+      res.send(rtn);
+    /*
+    */
+
+    /*
+    /* facebook access token
+
+    http.get('https://graph.facebook.com/me?access_token='+body.access_token, function(res) {
+        var body = '',
+            response = '';
+
+        res.on('data', function(chunk) {
+            body += chunk;
+        });
+
+        res.on('end', function() {
+          response = body;
+          console.log("Got response: ", response);
+
+
+          res1.setHeader('Access-Control-Allow-Origin', '*');
+          res1.type('application/json');
+          console.log(response);
+          res1.send(response);
+        });
+
+    }).on('error', function(e) {
+          console.log("Got error: ", e);
+    });
+
+    http.get('https://graph.facebook.com/me?access_token='+result.access_token)
+      .then(function(resp) {
+        
+        console.log(resp.data);
+
+      }, function(err) {
+        console.error('ERR', err);
+        // err.status will contain the status code
+        //alert(err);
+      });
+    */
 
       res.setHeader('Access-Control-Allow-Origin', '*');
       res.type('application/json');
