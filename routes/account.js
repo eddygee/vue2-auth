@@ -96,6 +96,7 @@ router.post('/login', function(req, res1, next) {
       access_token = body.access_token,
       url = 'https://graph.facebook.com/me?access_token='+access_token;
 
+  console.log('req', body);
   console.log(url);
 
   https.get(url, function(res) {
