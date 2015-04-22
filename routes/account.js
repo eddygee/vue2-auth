@@ -5,10 +5,10 @@ var BSON = require('mongodb').BSONPure;
 
 function createUser(db, data){
 
+  var data = JSON.parse(data);
+
     /* RETRIEVE USER IF EXISTS */
     var q = {'profile.email':data.email};
-
-    console.log('DATA--------->', data);
     console.log('query', q);
 
     db.collection('users').findOne(q, function (err, payload) {
