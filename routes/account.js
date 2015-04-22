@@ -3,13 +3,12 @@ var https = require('https');
 var router = express.Router();
 var BSON = require('mongodb').BSONPure;
 
-function createUser(data){
+function createUser(db, data){
 
     /* RETRIEVE USER IF EXISTS */
     var q = {'profile.email':data.email};
     db.collection('users').findOne(q, function (err, payload) {
       
-      console.log('BODY', body);
       console.log('USER PAYLOAD', payload);
       console.log('query', q);
 
@@ -110,7 +109,7 @@ router.post('/login', function(req, res1, next) {
       res.on('end', function() {
         response = body;
         console.log("Got response: ", response);
-        createUser(response);
+        createUser(db, response);
 
 
         res1.setHeader('Access-Control-Allow-Origin', '*');
