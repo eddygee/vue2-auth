@@ -73,10 +73,19 @@ function createUser(db, data, access_token){
               };
 
             }
+
         
         db.collection('users').insert(newUser, function(err, result) {
             if (err) throw err;
-            if (result){ console.log('New User Added!'); return newUser; }
+            if (result){
+
+              var va_user = {
+                name : data.name,
+                locale : newUser.profile.locale,
+                access_token : access_token
+              };
+              return va_user;
+            }
         });
 
       }else{
@@ -88,7 +97,14 @@ function createUser(db, data, access_token){
 
         db.collection('users').update({_id:payload._id}, {'$push':{'services.facebook.resume.loginTokens':newToken}}, function(err, result) {
             if (err) throw err;
-            if (result) console.log('Added Token');
+            if (result){
+              var va_user = {
+                name : data.name,
+                locale : 'wpb',
+                access_token : access_token
+              };
+              return va_user;
+            }
         });
       }
     });
