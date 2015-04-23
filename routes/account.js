@@ -3,7 +3,7 @@ var https = require('https');
 var router = express.Router();
 var BSON = require('mongodb').BSONPure;
 
-function createUser(db, data){
+function createUser(db, data, access_token){
 
   var data = JSON.parse(data);
 
@@ -76,13 +76,14 @@ function createUser(db, data){
         
         db.collection('users').insert(newUser, function(err, result) {
             if (err) throw err;
-            if (result) console.log('New User Added!');
+            if (result){ console.log('New User Added!'); return newUser; }
         });
 
       }else{
         console.log('user already exists', payload);
         var newToken =  {
-          when : new Date().toISOString()
+          when : new Date().toISOString(),
+          access_token : access_token
         }
 
         db.collection('users').update({_id:payload._id}, {'$push':{'services.facebook.resume.loginTokens':newToken}}, function(err, result) {
@@ -100,9 +101,6 @@ router.post('/login', function(req, res1, next) {
       access_token = body.access_token,
       url = 'https://graph.facebook.com/me?access_token='+access_token;
 
-  console.log('req', body);
-  console.log(url);
-
   https.get(url, function(res) {
       var body = '',
           response = '';
@@ -113,20 +111,19 @@ router.post('/login', function(req, res1, next) {
 
       res.on('end', function() {
         response = body;
-        console.log("Got response: ", response);
-        createUser(db, response);
+        var user = createUser(db, response, access_token);
 
         res1.setHeader('Access-Control-Allow-Origin', '*');
         res1.type('application/json');
         
-        var rtn  = JSON.stringify( response );
+        var rtn  = JSON.stringify( user );
 
         //Send response
-        res1.send(response);
+        res1.send(rtn);
       });
 
   }).on('error', function(e) {
-        console.log("Got error: ", e);
+    console.log("Got error: ", e);
   });
 
 });
