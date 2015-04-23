@@ -119,7 +119,7 @@ router.post('/login', function(req, res1, next) {
         var rtn  = JSON.stringify( user );
 
         //Send response
-        res1.send(rtn);
+        res1.send(user);
       });
 
   }).on('error', function(e) {
