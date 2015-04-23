@@ -9,18 +9,12 @@ function createUser(db, data, access_token){
 
     /* RETRIEVE USER IF EXISTS */
     var q = {'profile.email':data.email};
-    console.log('query', q);
-
     db.collection('users').findOne(q, function (err, payload) {
-      
-      console.log('USER PAYLOAD', payload);
-      console.log('query', q);
 
       /* IF USER DOES NOT EXISTS,
        * SAVE TO USERS COLLECTION
        */
       if(!payload){
-        console.log('CREATING NEW USER');
 
         var newUser = {};
             newUser.createdAt= new Date().toISOString();
@@ -79,6 +73,7 @@ function createUser(db, data, access_token){
             if (err) throw err;
             if (result){
 
+              //Return Vivid Arts User
               var va_user = {
                 name : data.name,
                 locale : newUser.profile.locale,
@@ -89,7 +84,6 @@ function createUser(db, data, access_token){
         });
 
       }else{
-        console.log('user already exists', payload);
         var newToken =  {
           when : new Date().toISOString(),
           access_token : access_token
@@ -98,15 +92,22 @@ function createUser(db, data, access_token){
         db.collection('users').update({_id:payload._id}, {'$push':{'services.facebook.resume.loginTokens':newToken}}, function(err, result) {
             if (err) throw err;
             if (result){
-              var va_user = {
-                name : data.name,
-                locale : 'wpb',
-                access_token : access_token
-              };
-              return va_user;
+
             }
         });
       }
+
+        res1.setHeader('Access-Control-Allow-Origin', '*');
+        res1.type('application/json');
+        //Return Vivid Arts User
+        var va_user = {
+          name : data.name,
+          locale : 'wpb',
+          access_token : access_token
+        };
+        
+        //Send response
+        res1.send(va_user);
     });
 }
 
