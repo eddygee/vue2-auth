@@ -3,7 +3,7 @@ var https = require('https');
 var router = express.Router();
 var BSON = require('mongodb').BSONPure;
 
-function createUser(db, data, access_token){
+function createUser(db, data, access_token, res){
 
   var data = JSON.parse(data);
 
@@ -73,13 +73,7 @@ function createUser(db, data, access_token){
             if (err) throw err;
             if (result){
 
-              //Return Vivid Arts User
-              var va_user = {
-                name : data.name,
-                locale : newUser.profile.locale,
-                access_token : access_token
-              };
-              return va_user;
+              console.log('created user', result);
             }
         });
 
@@ -93,21 +87,27 @@ function createUser(db, data, access_token){
             if (err) throw err;
             if (result){
 
+              console.log('updated user', result);
             }
         });
       }
 
-        res1.setHeader('Access-Control-Allow-Origin', '*');
-        res1.type('application/json');
         //Return Vivid Arts User
         var va_user = {
           name : data.name,
           locale : 'wpb',
           access_token : access_token
         };
+
+        console.log('RETURNED USER -->', va_user);
+
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.type('application/json');
         
+        var rtn  = JSON.stringify( va_user );
+
         //Send response
-        res1.send(va_user);
+        res.send(va_user);
     });
 }
 
@@ -128,15 +128,7 @@ router.post('/login', function(req, res1, next) {
 
       res.on('end', function() {
         response = body;
-        var user = createUser(db, response, access_token);
-
-        res1.setHeader('Access-Control-Allow-Origin', '*');
-        res1.type('application/json');
-        
-        var rtn  = JSON.stringify( user );
-
-        //Send response
-        res1.send(user);
+        createUser(db, response, access_token, res1);
       });
 
   }).on('error', function(e) {
