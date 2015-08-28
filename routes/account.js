@@ -116,7 +116,12 @@ router.post('/login', function(req, res1, next) {
   var db = req.db,
       body = req.body,
       access_token = body.access_token,
-      url = 'https://graph.facebook.com/me?access_token='+access_token;
+      url = '';
+
+  if(body.source==='fb')
+    url = 'https://graph.facebook.com/me?access_token='+access_token;
+  if(body.source==='ig')
+    url = 'https://graph.facebook.com/me?access_token='+access_token;
 
   https.get(url, function(res) {
       var body = '',

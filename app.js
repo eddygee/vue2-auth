@@ -17,6 +17,7 @@ var pages = require('./routes/pages');
 var blog = require('./routes/blog');
 var settings = require('./routes/settings');
 var accounts = require('./routes/account');
+var users = require('./routes/users');
 //var loaderio = require('./routes/loaderio');
 
 var app = express();
@@ -48,6 +49,7 @@ app.use('/pages', pages);
 app.use('/blog', blog);
 app.use('/auth', accounts);
 app.use('/ctrl', settings);
+app.use('/users', users);
 //app.use('/loaderio-1c8e8b375aa7f7ac9c319a7a42f2182e', loaderio);
 
 // catch 404 and forward to error handler
